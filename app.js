@@ -8,6 +8,18 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+const MongoClient = require("mongodb").MongoClient;
+
+MongoClient.connect("mongodb://127.0.0.1:27017", {
+    useUnifiedTopology: true
+})
+.then(client => {
+    console.log("Du är uppkopplad mot databasen!");
+
+    const db = client.db("newsletter");
+    app.locals.db = db;
+});
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
