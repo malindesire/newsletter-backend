@@ -1,25 +1,36 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var adminRouter = require('./routes/admin');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const adminRouter = require('./routes/admin');
 
-var app = express();
+const app = express();
+const mongoose = require('mongoose');
 
-const MongoClient = require("mongodb").MongoClient;
-
-MongoClient.connect("mongodb://127.0.0.1:27017", {
-    useUnifiedTopology: true
-})
-.then(client => {
-    console.log("Du är uppkopplad mot databasen!");
-
-    const db = client.db("newsletter");
+mongoose.connect("mongodb://localhost/newsletter", {}, (err) => {
+    const db = mongoose.connection
     app.locals.db = db;
+    if(err) {
+        console.log(err);
+    } else {
+        console.log("Du är uppkopplad mot databasen!");
+    }
 });
+
+// const MongoClient = require("mongodb").MongoClient;
+
+// MongoClient.connect("mongodb://127.0.0.1:27017", {
+//     useUnifiedTopology: true
+// })
+// .then(client => {
+//     console.log("Du är uppkopplad mot databasen!");
+
+//     const db = client.db("newsletter");
+//     app.locals.db = db;
+// });
 
 app.use(logger('dev'));
 app.use(express.json());

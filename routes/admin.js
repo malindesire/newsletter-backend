@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
 
   req.app.locals.db.collection("users").find().toArray()
   .then(results => {
-    console.log(results);
+    // console.log(results);
 
     let printUsers = "<div><h2>Våra användare</h2><div>"
     for (user in results) {
@@ -18,11 +18,22 @@ router.get('/', function(req, res, next) {
     }
     printUsers += "</div></div>"
 
-    let printSubscribers = "<div><h2>Prenumeranter</h2></div>"
 
-    res.send(printUsers + printSubscribers);
+    res.send(printUsers);
   });
 
+  req.app.locals.db.collection("users").find({ "subscribes": true }).toArray()
+  .then(results => {
+    console.log(results);
+    
+    let printSubscriberEmail = "<div><h2>Prenumeranter</h2>"
+    for (subscriber in results) {
+        printSubscriberEmail += "<p>" + results[subscriber].email + "</p></div>"
+    }
+
+
+    // res.send(printSubscriberEmail);
+  });
 
 });
 
