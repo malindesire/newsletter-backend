@@ -4,9 +4,8 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 
-  req.app.locals.db.collection("users").find().toArray()
+  req.app.locals.db.collection("usermodels").find().toArray()
   .then(results => {
-    // console.log(results);
 
     let printUsers = "<div><h2>Våra användare</h2><div>"
     for (user in results) {
@@ -17,7 +16,6 @@ router.get('/', function(req, res, next) {
             "<li>Prenumererar: " + results[user].subscribes + "</li></ul>"
     }
     printUsers += "</div></div>"
-
 
     res.send(printUsers);
   });
@@ -30,7 +28,6 @@ router.get('/', function(req, res, next) {
     for (subscriber in results) {
         printSubscriberEmail += "<p>" + results[subscriber].email + "</p></div>"
     }
-
 
     // res.send(printSubscriberEmail);
   });

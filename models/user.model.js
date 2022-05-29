@@ -15,7 +15,8 @@ const schema = new mongoose.Schema({
     },
     subscribes: {
         type: Boolean,
-        required: true
+        required: true,
+        default: false
     },
     password:{
         type: String,
