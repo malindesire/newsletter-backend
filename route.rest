@@ -1,0 +1,18 @@
+GET http://localhost:3000/api/user
+
+###
+
+GET http://localhost:3000/api/user/629381341fc108bb36d51c75
+
+###
+
+POST http://localhost:3000/api/user
+Content-Type: application/json
+
+{
+    "firstName": "Molly",
+    "lastName": "Ramelius",
+    "email": "molly@mail.com",
+    "subscribes": "true",
+    "password": "molly"
+}
